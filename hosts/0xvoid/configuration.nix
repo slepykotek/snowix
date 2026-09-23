@@ -4,8 +4,10 @@
   imports =
     [
       /etc/nixos/hardware-configuration.nix
-      ../../modules/virtualisation.nix
+      ../../modules/virtualization.nix
       ../../modules/user.nix
+      ../../modules/shell.nix
+      ../../modules/power.nix
     ] ++ lib.optional (builtins.pathExists ../../modules/local.nix) ../../modules/local.nix;
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
