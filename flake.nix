@@ -13,7 +13,7 @@
       system = "x86_64-linux";
       modules = [ 
         lanzaboote.nixosModules.lanzaboote
-	./configuration.nix 
+	./hosts/0xvoid/configuration.nix 
       ];
     };
   };
