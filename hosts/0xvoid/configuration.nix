@@ -8,7 +8,7 @@
       ../../modules/user.nix
       ../../modules/shell.nix
       ../../modules/power.nix
-    ] ++ lib.optional (builtins.pathExists ../../modules/local.nix) ../../modules/local.nix;
+    ] ++ lib.optional (builtins.pathExists /home/slepykotek/dotfiles/modules/local.nix) /home/slepykotek/dotfiles/modules/local.nix;
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -77,6 +77,7 @@
     gnome-themes-extra
     looking-glass-client
     git
+    nh
   ];
 
   xdg.portal = {
