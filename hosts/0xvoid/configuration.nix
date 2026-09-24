@@ -8,6 +8,7 @@
       ../../modules/user.nix
       ../../modules/shell.nix
       ../../modules/power.nix
+      ../../modules/shared.nix
     ] ++ lib.optional (builtins.pathExists /home/slepykotek/dotfiles/modules/local.nix) /home/slepykotek/dotfiles/modules/local.nix;
 
   boot.loader.systemd-boot.enable = lib.mkForce false;

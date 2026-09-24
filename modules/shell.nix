@@ -15,5 +15,15 @@
     bat
     fzf
     starship
+    zoxide
   ];
+
+  shellAliases = {
+   ls = "eza";
+   ll = "eza -l";
+   la = "eza -la";
+   lt = "eza --tree";
+   cat = "bat";
+   lg = "lazygit";
+  };
 }
