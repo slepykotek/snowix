@@ -21,12 +21,6 @@
   
   networking.hostName = "0xvoid";
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
-  };
-
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Warsaw";
@@ -46,6 +40,17 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+  };
+
+  programs.nh = {
+    enable = true;
+    flake = "/home/slepykotek/dotfiles";
+
+    clean = {
+      enable = true;
+      dates = "weekly";
+      extraArgs = "--keep 3 --keep-since 7d";
+    };
   };
 
   nixpkgs.config.allowUnfree = true;

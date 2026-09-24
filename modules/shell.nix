@@ -13,6 +13,8 @@
       lt = "eza --tree";
       cat = "bat";
       lg = "lazygit";
+      update = "nh os switch -- --impure";
+      upgrade = "nh os switch -u -- --impure";
      };
   };
 

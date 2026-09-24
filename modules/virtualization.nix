@@ -5,6 +5,7 @@
     "intel_iommu=on"
     "kvmfr.static_size_mb=64"
     "kvm.ignore_msrs=1"
+    "kvm.report_ignored_msrs=0"
   ];
 
   boot.extraModulePackages = [ config.boot.kernelPackages.kvmfr ];  
