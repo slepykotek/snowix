@@ -1,8 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  programs.zsh.enable = true;
-
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     nh

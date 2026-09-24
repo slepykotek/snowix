@@ -1,13 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
 
   users.users.slepykotek = {
     isNormalUser = true;
     extraGroups = [ "wheel" "libvirtd" "kvm" ];
-    packages = with pkgs; [
-      tree
-    ];
+    shell = pkgs.zsh;
   };
 
   programs.ssh.startAgent = true;
