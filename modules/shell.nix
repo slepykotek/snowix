@@ -5,6 +5,15 @@
     enable = true;
     enableCompletion = true;
     autosuggestions.enable = true;
+  
+    shellAliases = {
+      ls = "eza";
+      ll = "eza -l";
+      la = "eza -la";
+      lt = "eza --tree";
+      cat = "bat";
+      lg = "lazygit";
+     };
   };
 
   environment.systemPackages = with pkgs; [
@@ -17,13 +26,4 @@
     starship
     zoxide
   ];
-
-  shellAliases = {
-   ls = "eza";
-   ll = "eza -l";
-   la = "eza -la";
-   lt = "eza --tree";
-   cat = "bat";
-   lg = "lazygit";
-  };
 }
