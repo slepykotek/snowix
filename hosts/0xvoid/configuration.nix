@@ -42,6 +42,10 @@
     xwayland.enable = true;
   };
 
+  programs.niri.enable = true;
+
+  services.gnome.gcr-ssh-agent.enable = lib.mkForce false;
+
   programs.nh = {
     enable = true;
     flake = "/home/slepykotek/dotfiles";
@@ -66,7 +70,7 @@
     fetch
     sbctl
     tealdeer
-    noctalia-shell
+    #noctalia-shell # - package broke so no bar and lockscreen for now :(
     efibootmgr
     jetbrains-toolbox
     vesktop
@@ -84,6 +88,26 @@
     looking-glass-client
     git
     nh
+    clang-tools
+    pyright
+    nixd
+    # replacements until noctalia compiles correctly
+    waybar
+    fuzzel
+
+    (pkgs.stdenv.mkDerivation {
+      name = "glyph-sddm";
+      src = pkgs.fetchFromGitHub {
+        owner = "slepykotek";
+        repo = "glyph-sddm";
+        rev = "main";
+        hash = "sha256-Zw7JsKVh0in5anbI6WYlmOZhzjENTxlDgtofci01ymk=";
+      };
+      installPhase = ''
+        mkdir -p $out/share/sddm/themes/glyph
+        cp -r * $out/share/sddm/themes/glyph/
+      '';
+    })
   ];
 
   xdg.portal = {
@@ -95,15 +119,29 @@
   };
  
 
-  services.displayManager.ly = {
-    enable = true;
+  services.displayManager = {
+    ly.enable = false;
+    
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+      theme = "glyph";
+      package = pkgs.kdePackages.sddm;
 
-    settings = {
-      animation = "matrix";
-      bigclock = true;
+      extraPackages = with pkgs.kdePackages; [
+        qtdeclarative
+        qtsvg
+        qt5compat
+      ];
+
+      settings = {
+        Theme = {
+          CursorTheme = "breeze_cursors";
+        };
+      };
     };
   };
- 
+
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true;
