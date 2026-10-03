@@ -9,6 +9,7 @@
       ../../modules/shell.nix
       ../../modules/power.nix
       ../../modules/shared.nix
+      ../../modules/laptop.nix
     ] ++ lib.optional (builtins.pathExists /home/slepykotek/dotfiles/modules/local.nix) /home/slepykotek/dotfiles/modules/local.nix;
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
@@ -91,9 +92,15 @@
     clang-tools
     pyright
     nixd
+    python314
+    watt
+    brightnessctl
     # replacements until noctalia compiles correctly
     waybar
     fuzzel
+    swaybg
+    hyprlock
+    swayidle
 
     (pkgs.stdenv.mkDerivation {
       name = "glyph-sddm";
@@ -101,7 +108,7 @@
         owner = "slepykotek";
         repo = "glyph-sddm";
         rev = "main";
-        hash = "sha256-Zw7JsKVh0in5anbI6WYlmOZhzjENTxlDgtofci01ymk=";
+        hash = "sha256-ADRGGmtZJntRvrPJDT609VtG2Qz7VztgEMX12SxIDg8=";
       };
       installPhase = ''
         mkdir -p $out/share/sddm/themes/glyph
@@ -144,14 +151,25 @@
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = true;
-  hardware.nvidia.prime = {
-    offload.enable = true;
-    intelBusId = "PCI:0@0:2:0";
-    nvidiaBusId = "PCI:1@0:0:0";
+
+  hardware.nvidia = {
+    open = true;
+    
+    powerManagement.enable = true;
+    powerManagement.finegrained = true;
+
+    prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+
+        intelBusId = "PCI:0@0:2:0";
+        nvidiaBusId = "PCI:1@0:0:0";
+    };
+
+    modesetting.enable = true;
   };
   
-  hardware.nvidia.modesetting.enable = true;
-
   system.stateVersion = "26.05";
 }
