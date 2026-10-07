@@ -12,13 +12,21 @@
       ../../modules/laptop.nix
     ] ++ lib.optional (builtins.pathExists /home/slepykotek/dotfiles/modules/local.nix) /home/slepykotek/dotfiles/modules/local.nix;
 
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+      loader = { 
+        systemd-boot = {
+          enable = lib.mkForce false;
+          configurationLimit = 3;
+          }; 
 
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/var/lib/sbctl";
-  };
+        efi.canTouchEfiVariables = true;
+      };
+
+      lanzaboote = {
+          enable = true;
+          pkiBundle = "/var/lib/sbctl";
+        };
+    };
   
   networking.hostName = "0xvoid";
 
@@ -97,7 +105,7 @@
     brightnessctl
     # replacements until noctalia compiles correctly
     waybar
-    fuzzel
+    anyrun
     swaybg
     hyprlock
     swayidle
@@ -127,8 +135,6 @@
  
 
   services.displayManager = {
-    ly.enable = false;
-    
     sddm = {
       enable = true;
       wayland.enable = true;
